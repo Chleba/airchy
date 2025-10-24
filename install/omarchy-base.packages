@@ -26,6 +26,7 @@ nvim
 omarchy-nvim
 plocate
 python-poetry-core
+python-terminaltexteffects
 ripgrep
 tldr
 tree-sitter-cli
