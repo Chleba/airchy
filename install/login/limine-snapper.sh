@@ -36,7 +36,7 @@ KERNEL_CMDLINE[default]="$CMDLINE"
 KERNEL_CMDLINE[default]+="quiet splash"
 
 ENABLE_UKI=yes
-CUSTOM_UKI_NAME="omarchy"
+CUSTOM_UKI_NAME="airchy"
 
 ENABLE_LIMINE_FALLBACK=yes
 
