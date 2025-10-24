@@ -118,15 +118,17 @@ if [[ -n $EFI ]] && efibootmgr &>/dev/null; then
   while IFS= read -r bootnum; do
     sudo efibootmgr -b "$bootnum" -B >/dev/null 2>&1
   done < <(efibootmgr | grep -E "^Boot[0-9]{4}\*? Arch Linux Limine" | sed 's/^Boot\([0-9]\{4\}\).*/\1/')
-fi
 
-if [[ -n $EFI ]] && efibootmgr &>/dev/null &&
-  ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "American Megatrends" &&
-  ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "Apple"; then
-
+  # Verify that the UKI file was created
   uki_file=$(find /boot/EFI/Linux/ -name "airchy*.efi" -printf "%f\n" 2>/dev/null | head -1)
+  if [[ -z "$uki_file" ]]; then
+    echo "Error: limine-update failed to create a UKI file." >&2
+    echo "The system will likely not be bootable." >&2
+    exit 1
+  fi
 
-  if [[ -n "$uki_file" ]]; then
+  if ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "American Megatrends" &&
+    ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "Apple"; then
     sudo efibootmgr --create \
       --disk "$(findmnt -n -o SOURCE /boot | sed 's/p\?[0-9]*$//')" \
       --part "$(findmnt -n -o SOURCE /boot | grep -o 'p\?[0-9]*$' | sed 's/^p//')" \
