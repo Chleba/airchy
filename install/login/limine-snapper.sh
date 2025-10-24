@@ -124,7 +124,7 @@ if [[ -n $EFI ]] && efibootmgr &>/dev/null &&
   ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "American Megatrends" &&
   ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "Apple"; then
 
-  uki_file=$(find /boot/EFI/Linux/ -name "omarchy*.efi" -printf "%f\n" 2>/dev/null | head -1)
+  uki_file=$(find /boot/EFI/Linux/ -name "airchy*.efi" -printf "%f\n" 2>/dev/null | head -1)
 
   if [[ -n "$uki_file" ]]; then
     sudo efibootmgr --create \
