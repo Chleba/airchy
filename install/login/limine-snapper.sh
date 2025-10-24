@@ -36,7 +36,7 @@ KERNEL_CMDLINE[default]="$CMDLINE"
 KERNEL_CMDLINE[default]+="quiet splash"
 
 ENABLE_UKI=yes
-CUSTOM_UKI_NAME="airchy"
+CUSTOM_UKI_NAME="omarchy"
 
 ENABLE_LIMINE_FALLBACK=yes
 
@@ -120,7 +120,7 @@ if [[ -n $EFI ]] && efibootmgr &>/dev/null; then
   done < <(efibootmgr | grep -E "^Boot[0-9]{4}\*? Arch Linux Limine" | sed 's/^Boot\([0-9]\{4\}\).*/\1/')
 
   # Verify that the UKI file was created
-  uki_file=$(find /boot/EFI/Linux/ -name "airchy*.efi" -printf "%f\n" 2>/dev/null | head -1)
+  uki_file=$(find /boot/EFI/Linux/ -name "omarchy*.efi" -printf "%f\n" 2>/dev/null | head -1)
   if [[ -z "$uki_file" ]]; then
     echo "Error: limine-update failed to create a UKI file." >&2
     echo "The system will likely not be bootable." >&2
